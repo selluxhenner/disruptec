@@ -22,13 +22,13 @@ const features = [
 
 export function WhyDisruptec() {
   return (
-    <section id="why" className="py-20 md:py-32 bg-gradient-to-b from-background to-card">
+    <section id="why" className="py-20 md:py-32 bg-gradient-to-b from-[#1d1d1d] to-[#273b40]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-wide mb-4">
-            Warum <span className="text-primary">DISRUPTEC</span>
+          <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-wide mb-4 text-[#cae9ea]">
+            Warum <span className="text-[#208c8c]">DISRUPTEC</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Premium-Qualität, die man sieht und spürt</p>
+          <p className="text-[#3c4748] text-lg max-w-2xl mx-auto">Premium-Qualität, die man sieht und spürt</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -37,13 +37,13 @@ export function WhyDisruptec() {
             return (
               <div
                 key={index}
-                className="group bg-card border border-border rounded-lg p-8 hover:border-primary transition-all duration-300 hover:scale-105"
+                className="group bg-[#273b40] border border-[#3c4748] rounded-lg p-8 hover:border-[#208c8c] transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[#208c8c]/20"
               >
-                <div className="mb-6 inline-flex p-4 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 group-hover:from-primary/30 group-hover:to-secondary/30 transition-all">
-                  <Icon className="w-8 h-8 text-primary" />
+                <div className="mb-6 inline-flex p-4 rounded-lg bg-gradient-to-br from-[#208c8c]/20 to-[#273b40]/40 group-hover:from-[#208c8c]/40 group-hover:to-[#273b40]/60 transition-all">
+                  <Icon className="w-8 h-8 text-[#208c8c]" />
                 </div>
-                <h3 className="text-xl font-bold mb-4 uppercase tracking-wide">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold mb-4 uppercase tracking-wide text-[#cae9ea]">{feature.title}</h3>
+                <p className="text-[#3c4748] leading-relaxed">{feature.description}</p>
               </div>
             )
           })}

@@ -3,7 +3,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* DISRUPTEC custom dark theme colors in oklch format */
+/* Updated DISRUPTEC color scheme based on provided palette */
+/* Color Palette:
+   #273b40 - Dark teal
+   #cae9ea - Light cyan
+   #1d1d1d - Very dark gray (almost black)
+   #3c4748 - Medium dark gray
+   #208c8c - Teal accent
+*/
 :root {
   /* #1d1d1d - Very dark gray background */
   --background: oklch(0.15 0.005 270);
@@ -24,9 +31,9 @@
   /* #3c4748 - Medium dark gray for muted */
   --muted: oklch(0.3 0.02 200);
   --muted-foreground: oklch(0.7 0.02 195);
-  /* #cae9ea - Light cyan accent */
-  --accent: oklch(0.93 0.03 195);
-  --accent-foreground: oklch(0.15 0.005 270);
+  /* #208c8c - Teal accent */
+  --accent: oklch(0.55 0.1 195);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(1 0 0);
   /* #3c4748 - Medium dark gray for borders */
@@ -134,14 +141,14 @@
   }
 }
 
-/* Custom animations for hover effects */
+/* Updated glow animation to use teal color */
 @keyframes glow {
   0%,
   100% {
-    box-shadow: 0 0 20px oklch(0.55 0.1 195 / 0.3);
+    box-shadow: 0 0 20px rgba(32, 140, 140, 0.3);
   }
   50% {
-    box-shadow: 0 0 30px oklch(0.55 0.1 195 / 0.6);
+    box-shadow: 0 0 30px rgba(32, 140, 140, 0.6);
   }
 }
 
