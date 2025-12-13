@@ -20,7 +20,7 @@ export function BuildGuides() {
           {/* Build Guides */}
           <div className="bg-card border border-border rounded-lg p-8 hover:border-secondary transition-all">
             <div className="mb-6 inline-flex p-4 rounded-lg bg-gradient-to-br from-secondary/20 to-accent/20">
-              <FileText className="w-10 h-10 text-secondary" />
+              <FileText className="w-10 h-10 text-accent" />
             </div>
             <h3 className="text-2xl font-bold mb-4 uppercase tracking-wide">Build Guides</h3>
             <p className="text-muted-foreground mb-6 leading-relaxed">

@@ -11,7 +11,7 @@ export function Hero() {
         <img
           src="/premium-gaming-pc-with-rgb-lighting-on-dark-backgr.jpg"
           alt="DISRUPTEC Gaming PC"
-          className="w-full h-full object-cover opacity-30"
+          className="w-full h-full object-cover opacity-10"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#1d1d1d]/60 via-[#273b40]/80 to-[#1d1d1d]"></div>
       </div>
@@ -21,7 +21,7 @@ export function Hero() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="inline-block mb-8">
             <img
-              src="/disruptec-logo.jpg"
+              src="/disruptec-logo.png"
               alt="DISRUPTEC Logo"
               className="h-24 md:h-32 lg:h-40 w-auto mx-auto drop-shadow-2xl"
             />
