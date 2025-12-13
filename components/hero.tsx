@@ -20,12 +20,12 @@ export function Hero() {
       <div className="relative z-10 container mx-auto px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Logo/Brand */}
-          <div className="inline-block">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider uppercase mb-4">
-              <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                DISRUPTEC
-              </span>
-            </h1>
+          <div className="inline-block mb-8">
+            <img
+              src="/images/disruptec-20logo.png"
+              alt="DISRUPTEC Logo"
+              className="h-24 md:h-32 lg:h-40 w-auto mx-auto"
+            />
           </div>
 
           {/* Main Headline */}
@@ -73,7 +73,7 @@ export function Hero() {
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <ChevronDown className="w-8 h-8 text-accent" />
+          <ChevronDown className="w-8 h-8 text-primary" />
         </div>
       </div>
     </section>
