@@ -11,9 +11,9 @@ export function Hero() {
         <img
           src="/premium-gaming-pc-with-rgb-lighting-on-dark-backgr.jpg"
           alt="DISRUPTEC Gaming PC"
-          className="w-full h-full object-cover opacity-10"
+          className="w-full h-full object-cover opacity-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1d1d1d]/60 via-[#273b40]/80 to-[#1d1d1d]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1d1d1d]/30 via-[#273b40]/70 to-[#1d1d1d]/80"></div>
       </div>
 
       {/* Content */}
@@ -69,10 +69,6 @@ export function Hero() {
             </span>
           </div>
         </div>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <ChevronDown className="w-8 h-8 text-[#208c8c]" />
       </div>
     </section>
   )
