@@ -146,7 +146,7 @@ export function GamingPcs() {
           <Button
             variant="outline"
             className="border-accent text-accent hover:bg-accent hover:text-accent-foreground uppercase tracking-wide bg-transparent"
-            onClick={() => window.open("https://ricardo.ch", "_blank")}
+            onClick={() => window.open("https://www.ricardo.ch/de/shop/DISRUPTEC/offers/", "_blank")}
           >
             Zu den Ricardo Angeboten
             <ExternalLink className="ml-2 w-4 h-4" />
