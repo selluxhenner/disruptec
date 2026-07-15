@@ -2,10 +2,8 @@ const ITEMS = [
   "DISRUPTEC",
   "PREMIUM PC MANUFAKTUR",
   "HANDGEBAUT IN DER SCHWEIZ",
-  "CABLE MANAGEMENT EXPERTS",
+  "SAUBERES CABLE MANAGEMENT",
   "SEIT 2022",
-  "5 STERNE BEWERTUNG",
-  "100% SWISS MADE",
   "FAIR & TRANSPARENT",
 ]
 
@@ -16,8 +14,8 @@ export function MarqueeStrip() {
     <div
       className="relative overflow-hidden py-3 border-y border-transparent"
       style={{
-        background: "linear-gradient(90deg, #985eed 0%, #417ef5 50%, #0fd9e6 100%)",
-        borderImage: "linear-gradient(90deg,#985eed,#0fd9e6) 1",
+        background: "linear-gradient(90deg, #208c8c 0%, #5eead4 50%, #0fd9e6 100%)",
+        borderImage: "linear-gradient(90deg,#208c8c,#0fd9e6) 1",
       }}
     >
       <div className="flex animate-marquee whitespace-nowrap">

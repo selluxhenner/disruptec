@@ -3,6 +3,8 @@ export interface PCDocument {
   name: string
   slug: string
   priceChf: number
+  /** Legacy price field used by older documents – prefer priceChf */
+  price?: number
   shortDescription: string
   longDescription: string
   cpu: string

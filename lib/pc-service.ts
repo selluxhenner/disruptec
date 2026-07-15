@@ -7,7 +7,6 @@ import {
   updateDoc,
   deleteDoc,
   query,
-  orderBy,
   where,
 } from "firebase/firestore"
 import { ref, uploadBytes, getDownloadURL, deleteObject, listAll } from "firebase/storage"
@@ -15,27 +14,69 @@ import { getFirebaseDb, getFirebaseStorage } from "./firebase"
 import type { PCDocument } from "./types"
 
 const PCS_COLLECTION = "pcs"
+const LIST_TTL_MS = 60_000
+
+let listCache: { data: PCDocument[]; ts: number } | null = null
+let listInflight: Promise<PCDocument[]> | null = null
+const slugCache = new Map<string, PCDocument>()
+const idCache = new Map<string, PCDocument>()
+
+function rememberPC(pc: PCDocument) {
+  if (pc.slug) slugCache.set(pc.slug, pc)
+  if (pc.id) idCache.set(pc.id, pc)
+}
+
+function invalidateCaches() {
+  listCache = null
+  slugCache.clear()
+  idCache.clear()
+}
+
+function sortPCs(pcs: PCDocument[]): PCDocument[] {
+  return [...pcs].sort((a, b) => {
+    const af = a.isFeatured ? 1 : 0
+    const bf = b.isFeatured ? 1 : 0
+    if (af !== bf) return bf - af
+    return (b.createdAt ?? 0) - (a.createdAt ?? 0)
+  })
+}
 
 // Get all PCs
-export async function getAllPCs(): Promise<PCDocument[]> {
-  try {
-    const db = getFirebaseDb()
-    const pcsRef = collection(db, PCS_COLLECTION)
-    const q = query(pcsRef, orderBy("isFeatured", "desc"), orderBy("createdAt", "desc"))
-    const snapshot = await getDocs(q)
-
-    return snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    })) as PCDocument[]
-  } catch (error) {
-    console.error("Error fetching PCs:", error)
-    return []
+export async function getAllPCs(force = false): Promise<PCDocument[]> {
+  if (!force && listCache && Date.now() - listCache.ts < LIST_TTL_MS) {
+    return listCache.data
   }
+  if (listInflight) return listInflight
+
+  listInflight = (async () => {
+    try {
+      const db = getFirebaseDb()
+      const pcsRef = collection(db, PCS_COLLECTION)
+      const snapshot = await getDocs(pcsRef)
+
+      const data = sortPCs(
+        snapshot.docs.map((d) => ({ id: d.id, ...d.data() })) as PCDocument[]
+      )
+
+      data.forEach(rememberPC)
+      listCache = { data, ts: Date.now() }
+      return data
+    } catch (error) {
+      console.error("Error fetching PCs:", error)
+      return []
+    } finally {
+      listInflight = null
+    }
+  })()
+
+  return listInflight
 }
 
 // Get PC by slug
 export async function getPCBySlug(slug: string): Promise<PCDocument | null> {
+  const cached = slugCache.get(slug)
+  if (cached) return cached
+
   try {
     const db = getFirebaseDb()
     const pcsRef = collection(db, PCS_COLLECTION)
@@ -47,10 +88,13 @@ export async function getPCBySlug(slug: string): Promise<PCDocument | null> {
     }
 
     const docData = snapshot.docs[0]
-    return {
+    const pc = {
       id: docData.id,
       ...docData.data(),
     } as PCDocument
+
+    rememberPC(pc)
+    return pc
   } catch (error) {
     console.error("Error fetching PC by slug:", error)
     return null
@@ -59,6 +103,9 @@ export async function getPCBySlug(slug: string): Promise<PCDocument | null> {
 
 // Get PC by ID
 export async function getPCById(id: string): Promise<PCDocument | null> {
+  const cached = idCache.get(id)
+  if (cached) return cached
+
   try {
     const db = getFirebaseDb()
     const docRef = doc(db, PCS_COLLECTION, id)
@@ -68,10 +115,13 @@ export async function getPCById(id: string): Promise<PCDocument | null> {
       return null
     }
 
-    return {
+    const pc = {
       id: docSnap.id,
       ...docSnap.data(),
     } as PCDocument
+
+    rememberPC(pc)
+    return pc
   } catch (error) {
     console.error("Error fetching PC by ID:", error)
     return null
@@ -88,6 +138,7 @@ export async function createPC(data: Omit<PCDocument, "id" | "createdAt" | "upda
       createdAt: now,
       updatedAt: now,
     })
+    invalidateCaches()
     return docRef.id
   } catch (error) {
     console.error("Error creating PC:", error)
@@ -104,6 +155,7 @@ export async function updatePC(id: string, data: Partial<PCDocument>): Promise<v
       ...data,
       updatedAt: Date.now(),
     })
+    invalidateCaches()
   } catch (error) {
     console.error("Error updating PC:", error)
     throw error
@@ -119,6 +171,7 @@ export async function deletePC(id: string): Promise<void> {
     // Delete document
     const docRef = doc(db, PCS_COLLECTION, id)
     await deleteDoc(docRef)
+    invalidateCaches()
 
     // Delete all images from storage
     try {

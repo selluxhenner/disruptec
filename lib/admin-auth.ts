@@ -1,7 +1,7 @@
 import { cookies } from "next/headers"
 
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin"
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin123"
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "kev"
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "Orion"
 const COOKIE_NAME = process.env.ADMIN_SESSION_COOKIE_NAME || "disruptec_admin"
 
 export async function verifyAdminCredentials(username: string, password: string): Promise<boolean> {

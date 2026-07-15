@@ -30,7 +30,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
               key={index}
               onClick={() => setSelectedImage(index)}
               className={cn(
-                "relative aspect-square overflow-hidden rounded-lg border-2 transition-all duration-300 hover:scale-105",
+                "relative aspect-square overflow-hidden rounded-lg border-2 transition-all duration-300 hover:scale-105 cursor-pointer",
                 selectedImage === index
                   ? "border-primary ring-2 ring-primary ring-offset-2 ring-offset-background"
                   : "border-border hover:border-primary/50",

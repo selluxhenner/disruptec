@@ -15,16 +15,13 @@ function initializeFirebase() {
   }
 
   const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  }
-
-  // Validate config
-  if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
-    throw new Error("Firebase configuration is incomplete. Please check your environment variables.")
+    apiKey: "AIzaSyAoSJdrI1fVhwDt2b2nXI2gsXGahoBLYAE",
+    authDomain: "disruptec-25cc6.firebaseapp.com",
+    projectId: "disruptec-25cc6",
+    storageBucket: "disruptec-25cc6.appspot.com",
+    messagingSenderId: "170840319214",
+    appId: "1:170840319214:web:6b3a42722f85a0522d3fff",
+    measurementId: "G-CG5STGPB9H",
   }
 
   if (!getApps().length) {

@@ -67,7 +67,7 @@ export function PCForm({ pcId }: PCFormProps) {
       if (pc) {
         setName(pc.name)
         setSlug(pc.slug)
-        setPriceChf(pc.priceChf.toString())
+        setPriceChf((pc.priceChf ?? pc.price ?? "").toString())
         setShortDescription(pc.shortDescription)
         setLongDescription(pc.longDescription)
         setCpu(pc.cpu)
@@ -84,7 +84,7 @@ export function PCForm({ pcId }: PCFormProps) {
         setFeatures(pc.features?.join("\n") || "")
       }
     } catch (error) {
-      console.error("[v0] Error loading PC:", error)
+      console.error("Error loading PC:", error)
       alert("Failed to load PC")
     } finally {
       setLoading(false)
@@ -102,7 +102,7 @@ export function PCForm({ pcId }: PCFormProps) {
         await updatePC(pcId, { images: images.filter((img) => img !== imageUrl) })
       }
     } catch (error) {
-      console.error("[v0] Error removing image:", error)
+      console.error("Error removing image:", error)
       alert("Failed to remove image")
     }
   }
@@ -126,7 +126,7 @@ export function PCForm({ pcId }: PCFormProps) {
 
       await updatePC(pcId!, { images: newImages })
     } catch (error) {
-      console.error("[v0] Error uploading images:", error)
+      console.error("Error uploading images:", error)
       alert("Failed to upload images")
     } finally {
       setUploadingImages(false)
@@ -180,7 +180,7 @@ export function PCForm({ pcId }: PCFormProps) {
       alert("PC saved successfully!")
       router.push("/admin/pcs")
     } catch (error) {
-      console.error("[v0] Error saving PC:", error)
+      console.error("Error saving PC:", error)
       alert("Failed to save PC")
     } finally {
       setSaving(false)
@@ -189,9 +189,21 @@ export function PCForm({ pcId }: PCFormProps) {
 
   if (loading) {
     return (
-      <AdminLayout title="Loading...">
-        <div className="flex items-center justify-center py-12">
-          <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
+      <AdminLayout title="Edit PC" description="Lädt…">
+        <div className="max-w-3xl space-y-8">
+          {[...Array(3)].map((_, section) => (
+            <div key={section} className="bg-card border border-border rounded-lg p-6 space-y-4">
+              <div className="h-5 w-40 bg-muted/40 rounded animate-pulse" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[...Array(section === 1 ? 8 : 4)].map((_, i) => (
+                  <div key={i} className="space-y-2">
+                    <div className="h-3 w-24 bg-muted/30 rounded animate-pulse" />
+                    <div className="h-9 w-full bg-muted/40 rounded animate-pulse" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </AdminLayout>
     )

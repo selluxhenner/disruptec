@@ -1,30 +1,41 @@
-# DISRUPTEC one-page website
+# DISRUPTEC – Premium PC Manufaktur Schweiz
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+Website für [DISRUPTEC](https://disruptec.ch): handgebaute Gaming PCs, Build Guides und persönliche Beratung aus der Schweiz.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/phenner18-5842s-projects/v0-disruptec)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/fAmiIFJ9MnB)
+## Tech Stack
 
-## Overview
+- [Next.js 14](https://nextjs.org/) (App Router) mit TypeScript
+- [Tailwind CSS](https://tailwindcss.com/) für das Styling
+- [Framer Motion](https://www.framer.com/motion/) für Animationen
+- [Firebase](https://firebase.google.com/) (Firestore + Storage) für PC-Daten und Bilder
+- Deployment auf [Vercel](https://vercel.com/)
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## Entwicklung
 
-## Deployment
+```bash
+npm install
+npm run dev
+```
 
-Your project is live at:
+Die Seite läuft danach auf [http://localhost:3000](http://localhost:3000).
 
-**[https://vercel.com/phenner18-5842s-projects/v0-disruptec](https://vercel.com/phenner18-5842s-projects/v0-disruptec)**
+## Produktion
 
-## Build your app
+```bash
+npm run build
+npm start
+```
 
-Continue building your app on:
+## Struktur
 
-**[https://v0.app/chat/fAmiIFJ9MnB](https://v0.app/chat/fAmiIFJ9MnB)**
+- `app/` – Seiten (Startseite, PC-Detailseiten unter `/pc/[slug]`, Admin-Bereich unter `/admin`)
+- `components/` – React-Komponenten der Website
+- `lib/` – Firebase-Anbindung, PC-Service und Hilfsfunktionen
+- `public/` – Bilder, Logos und Favicons
 
-## How It Works
+## Admin-Bereich
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Unter `/admin` können PCs erstellt und bearbeitet werden. Der Zugang ist über Umgebungsvariablen geschützt:
+
+- `ADMIN_USERNAME` / `ADMIN_PASSWORD` – Zugangsdaten
+- `ADMIN_SESSION_COOKIE_NAME` – optionaler Cookie-Name (Standard: `disruptec_admin`)

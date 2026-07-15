@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react"
 import { FadeUp } from "@/components/ui/fade-up"
 
 const STATS = [
-  { value: 150, suffix: "+", label: "Builds abgeschlossen", sublabel: "Seit 2022",         color: "#0fd9e6" },
-  { value: 5,   suffix: "★", label: "Kundenbewertung",      sublabel: "Durchschnitt",       color: "#985eed" },
-  { value: "Individuell",  suffix: "", label: "Massgeschneiderte Builds",       sublabel: "Für jeden Einsatz",        color: "#417ef5" },
+  { value: 15, suffix: "+", label: "Builds abgeschlossen", sublabel: "Seit 2022",         color: "#0fd9e6" },
+  { value: 4.7,   suffix: "★", label: "Kundenbewertung",      sublabel: "Durchschnitt",       color: "#208c8c" },
+  { value: 24,  suffix: "h", label: "Antwortzeit",          sublabel: "Auf jede Anfrage",    color: "#5eead4" },
   { value: 100, suffix: "%", label: "Swiss Made",           sublabel: "Qualitätsgarantie",   color: "#0fd9e6" },
 ]
 
@@ -49,7 +49,7 @@ export function Stats() {
   return (
     <section className="bg-[#080809] border-b border-[#1a1c24] py-20 md:py-24">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-[#1a1c24] max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px  max-w-5xl mx-auto">
           {STATS.map((s, i) => (
             <FadeUp key={i} delay={i * 80}>
               <div

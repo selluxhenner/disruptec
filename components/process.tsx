@@ -15,7 +15,7 @@ const STEPS = [
   {
     num: "02",
     Icon: Wrench,
-    color: "#985eed",
+    color: "#208c8c",
     title: "Zusammenbau",
     description:
       "Jeder PC wird sorgfältig von Hand zusammengebaut und ausführlich getestet. Sauberes Kabelmanagement und optimierter Airflow sind Standard, nicht Option.",
@@ -23,10 +23,10 @@ const STEPS = [
   {
     num: "03",
     Icon: Truck,
-    color: "#417ef5",
+    color: "#5eead4",
     title: "Lieferung",
     description:
-      "Dein PC wird sicher verpackt und innert 48 Stunden in der ganzen Schweiz geliefert – oder persönlich übergeben, ganz nach deinem Wunsch.",
+      "Dein PC wird sicher verpackt und in der ganzen Schweiz geliefert – oder persönlich übergeben, ganz nach deinem Wunsch.",
   },
 ]
 
@@ -49,7 +49,7 @@ export function Process() {
 
           {/* Connector line desktop */}
           <div className="hidden md:block absolute top-12 left-[calc(16.66%+2.5rem)] right-[calc(16.66%+2.5rem)] h-px z-0"
-            style={{ background: "linear-gradient(90deg, #0fd9e6, #985eed, #417ef5)" }}
+            style={{ background: "linear-gradient(90deg, #0fd9e6, #208c8c, #5eead4)" }}
           />
 
           {STEPS.map(({ num, Icon, color, title, description }, i) => (
@@ -88,7 +88,7 @@ export function Process() {
         <FadeUp delay={400}>
           <div className="text-center mt-16">
             <button
-              className="bg-[#985eed] hover:bg-[#b07ff5] text-white text-xs font-black uppercase tracking-[0.3em] px-10 py-4 transition-all duration-300 shadow-[0_0_32px_rgba(152,94,237,0.25)] hover:shadow-[0_0_48px_rgba(152,94,237,0.5)] cursor-pointer"
+              className="bg-[#208c8c] hover:bg-[#2bb3b3] text-white text-xs font-black uppercase tracking-[0.3em] px-10 py-4 transition-all duration-300 shadow-[0_0_32px_rgba(32,140,140,0.25)] hover:shadow-[0_0_48px_rgba(32,140,140,0.5)] cursor-pointer"
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             >
               Jetzt starten

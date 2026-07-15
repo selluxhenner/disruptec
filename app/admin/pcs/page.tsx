@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { getAllPCs, deletePC } from "@/lib/pc-service"
 import type { PCDocument } from "@/lib/types"
+import { formatChf } from "@/lib/utils"
 import { Trash2, Pencil, Plus, LogOut, ImageIcon } from "lucide-react"
 
 export default function AdminPCsPage() {
@@ -56,14 +57,6 @@ export default function AdminPCsPage() {
     }
   }
 
-  if (!loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted-foreground">Loading...</p>
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen bg-background">
       <div className="border-b border-border bg-card">
@@ -79,9 +72,9 @@ export default function AdminPCsPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-6 flex justify-between items-center">
           <p className="text-muted-foreground">
-            {pcs.length} {pcs.length === 1 ? "PC" : "PCs"} total
+            {loading ? "Lädt…" : `${pcs.length} ${pcs.length === 1 ? "PC" : "PCs"} total`}
           </p>
-          <Link href="/admin/pcs/new">
+          <Link href="/admin/pcs/new" prefetch>
             <Button>
               <Plus className="w-4 h-4 mr-2" />
               Add New PC
@@ -89,7 +82,30 @@ export default function AdminPCsPage() {
           </Link>
         </div>
 
-        {pcs.length === 0 ? (
+        {loading ? (
+          <div className="bg-card border border-border rounded-lg overflow-hidden">
+            <div className="border-b border-border p-4 grid grid-cols-[1fr_120px_80px_100px_100px] gap-4">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="h-4 bg-muted/40 rounded animate-pulse" />
+              ))}
+            </div>
+            {[...Array(4)].map((_, row) => (
+              <div
+                key={row}
+                className="border-b border-border last:border-0 p-4 grid grid-cols-[1fr_120px_80px_100px_100px] gap-4"
+              >
+                <div className="space-y-2">
+                  <div className="h-4 w-2/3 bg-muted/40 rounded animate-pulse" />
+                  <div className="h-3 w-1/3 bg-muted/30 rounded animate-pulse" />
+                </div>
+                <div className="h-4 bg-muted/40 rounded animate-pulse" />
+                <div className="h-4 w-8 bg-muted/40 rounded animate-pulse" />
+                <div className="h-5 w-16 bg-muted/40 rounded animate-pulse" />
+                <div className="h-7 w-20 ml-auto bg-muted/40 rounded animate-pulse" />
+              </div>
+            ))}
+          </div>
+        ) : pcs.length === 0 ? (
           <div className="bg-card border border-border rounded-lg p-12 text-center">
             <p className="text-muted-foreground mb-4">No PCs yet</p>
             <Link href="/admin/pcs/new">
@@ -122,12 +138,12 @@ export default function AdminPCsPage() {
                         </div>
                       </td>
                       <td className="p-4">
-                        <p className="font-semibold text-foreground">CHF {pc.priceChf.toLocaleString("de-CH")}</p>
+                        <p className="font-semibold text-foreground">CHF {formatChf(pc.priceChf)}</p>
                       </td>
                       <td className="p-4">
                         <div className="flex items-center gap-2 text-muted-foreground">
                           <ImageIcon className="w-4 h-4" />
-                          <span className="text-sm">{pc.images.length}</span>
+                          <span className="text-sm">{pc.images?.length ?? 0}</span>
                         </div>
                       </td>
                       <td className="p-4">
@@ -139,7 +155,7 @@ export default function AdminPCsPage() {
                       </td>
                       <td className="p-4">
                         <div className="flex items-center justify-end gap-2">
-                          <Link href={`/admin/pcs/${pc.id}`}>
+                          <Link href={`/admin/pcs/${pc.id}`} prefetch>
                             <Button variant="outline" size="sm">
                               <Pencil className="w-4 h-4" />
                             </Button>
